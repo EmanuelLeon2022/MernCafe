@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { signUp } from "../utilities/users-service";
+import { signUp } from '../utilities/users-service';
+
 
 export default class SignUpForm extends Component {
   state = {
@@ -13,35 +14,34 @@ export default class SignUpForm extends Component {
   handleChange = (evt) => {
     this.setState({
       [evt.target.name]: evt.target.value,
-      error: "",
+      error: ''
     });
   };
-
   handleSubmit = async (evt) => {
-    // Prevent form from being submitted to the server
     evt.preventDefault();
+    // alert(JSON.stringify(this.state));
     try {
-      // We don't want to send the 'error' or 'confirm' property,
-      //  so let's make a copy of the state object, then delete them
-      const formData = { ...this.state };
-      delete formData.error;
-      delete formData.confirm;
+        const formData = {...this.state};
+        delete formData.error;
+        delete formData.confirm;
+        const user = await signUp(formData);
+        console.log(user)
 
-      const user = await signUp(formData);
-      // Baby step!
-      console.log(user);
-    } catch {
-      // An error occurred
-      this.setState({ error: "Sign Up Failed - Try Again" });
+    } catch (error) {
+        this.setState({
+            error: "Sign Up Failed - Try Again"
+        })
     }
   };
 
   render() {
     const disable = this.state.password !== this.state.confirm;
+
     return (
-      <div>
+      <>
+        <div>SignUpForm</div>
         <div className="form-container">
-          <form autoComplete="off" onSubmit={this.handleSubmit}>
+          <form autoComplete="off" onSubmit={this.handleSubmit} style={{margin:"1em"}}>
             <label>Name</label>
             <input
               type="text"
@@ -79,8 +79,9 @@ export default class SignUpForm extends Component {
             </button>
           </form>
         </div>
-        <p className="error-message">&nbsp;{this.state.error}</p>
-      </div>
+        <p className="error-message">{this.state.error}</p>
+        
+      </>
     );
   }
 }

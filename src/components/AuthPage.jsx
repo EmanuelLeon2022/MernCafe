@@ -1,13 +1,12 @@
 import React from "react";
 import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
 
 function AuthPage() {
-  return (
-    <main>
-      <h1>AuthPage</h1>
-      <SignUpForm />
-    </main>
-  );
+  return<>
+    <SignUpForm />
+    <LoginForm />
+  </>;
 }
 
 export default AuthPage;

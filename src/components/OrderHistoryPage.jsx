@@ -1,7 +1,21 @@
-import React from "react";
+import React from 'react'
+import * as usersService from "../utilities/users-service"; 
 
 function OrderHistoryPage() {
-  return <div>OrderHistoryPage</div>;
+
+const handleCheckToken = () =>{
+  let exp = usersService.checkToken()
+  console.log(exp)
 }
 
-export default OrderHistoryPage;
+
+  return (
+    <>
+    <h1> OrderHistory Page</h1>
+    <button onClick={handleCheckToken}> Check Login Expiration </button>
+    
+    </>
+  )
+}
+
+export default OrderHistoryPage
